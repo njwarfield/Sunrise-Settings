@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.nathanjwarfield.sunrisesettings.MainActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/monday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/tuesday_alarm_label"
+            app:layout_constraintEnd_toStartOf="@+id/monday_alarm_time"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+        <TextView
+            android:id="@+id/tuesday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tuesday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/wednesday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/monday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/monday_alarm_label" />
+
+        <TextView
+            android:id="@+id/wednesday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wednesday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/thursday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/tuesday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/tuesday_alarm_label" />
+
+        <TextView
+            android:id="@+id/thursday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thursday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/friday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/wednesday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/wednesday_alarm_label" />
+
+        <TextView
+            android:id="@+id/friday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/saturday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/thursday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/thursday_alarm_label" />
+
+        <TextView
+            android:id="@+id/saturday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saturday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/sunday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/friday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/friday_alarm_label" />
+
+        <TextView
+            android:id="@+id/sunday_alarm_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sunday"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_enabled"
+            app:layout_constraintStart_toStartOf="@+id/saturday_alarm_label"
+            app:layout_constraintTop_toBottomOf="@+id/saturday_alarm_label" />
+
+
+        <TextView
+            android:id="@+id/monday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/monday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.MONDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/monday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/tuesday_alarm_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/monday_alarm_label"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/tuesday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/tuesday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.TUESDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tuesday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/wednesday_alarm_time"
+            app:layout_constraintStart_toStartOf="@+id/monday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/monday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/wednesday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/wednesday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.WEDNESDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/wednesday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/thursday_alarm_time"
+            app:layout_constraintStart_toStartOf="@+id/tuesday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/tuesday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/thursday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/thursday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.THURSDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/thursday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/friday_alarm_time"
+            app:layout_constraintStart_toStartOf="@+id/wednesday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/wednesday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/friday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.FRIDAY)}"
+            android:textSize="24sp"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/friday"
+            app:layout_constraintBaseline_toBaselineOf="@id/friday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/saturday_alarm_time"
+            app:layout_constraintStart_toStartOf="@+id/thursday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/thursday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/saturday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/saturday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.SATURDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/saturday_alarm_label"
+            app:layout_constraintBottom_toTopOf="@+id/sunday_alarm_time"
+            app:layout_constraintStart_toStartOf="@+id/friday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/friday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <TextView
+            android:id="@+id/sunday_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:tag="@string/sunday"
+            android:text="@{viewModel.getAlarmTime(java.time.DayOfWeek.SUNDAY)}"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/sunday_alarm_label"
+            app:layout_constraintStart_toStartOf="@+id/saturday_alarm_time"
+            app:layout_constraintTop_toBottomOf="@+id/saturday_alarm_time"
+            tools:text="7:00 AM" />
+
+        <Switch
+            android:id="@+id/alarm_enabled"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginTop="63dp"
+            android:layout_marginBottom="64dp"
+            android:checked="@{viewModel.alarmSettings.enabled}"
+            android:text="@string/alarm"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sunday_alarm_time"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
