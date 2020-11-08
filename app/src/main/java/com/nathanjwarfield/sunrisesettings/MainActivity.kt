@@ -15,18 +15,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 
     fun showTimePickerDialog(v: View) {
         val tag = v.tag.toString()
         val dayOfWeek = DayOfWeek.valueOf(tag.toUpperCase(Locale.ROOT))
-        val alarmDay = viewModel.alarmSettings.alarms.single{alarmDay -> alarmDay.kotlinDay == dayOfWeek.value }
+        val alarmDay = viewModel.alarmSettings.value?.alarms!!.single{alarmDay -> alarmDay.kotlinDay == dayOfWeek.value }
         val dialog = TimePickerFragment(alarmDay, viewModel)
         dialog.show(supportFragmentManager, "Alarm Picker")
     }

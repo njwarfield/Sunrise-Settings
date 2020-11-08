@@ -60,4 +60,7 @@ dependencies {
     // Kapt
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    // Lifecycles
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
 }
