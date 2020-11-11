@@ -32,11 +32,12 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    fun changeAlarmState() {
+    fun changeAlarmState(enabled: Boolean) {
+        val endpoint: String = if(enabled) "on" else "off"
         runBlocking {
-            val response: HttpResponse = client.get("http://$domain/toggle")
+            val response: HttpResponse = client.get("http://$domain/$endpoint")
             if(response.status == HttpStatusCode.OK)
-               _alarmSettings.value!!.enabled = !_alarmSettings.value!!.enabled
+               _alarmSettings.value!!.enabled = enabled
         }
     }
 

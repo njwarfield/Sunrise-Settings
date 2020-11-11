@@ -21,6 +21,18 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.alarmSettings.observe(this, androidx.lifecycle.Observer {
+            binding.mondayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.MONDAY)
+            binding.tuesdayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.TUESDAY)
+            binding.wednesdayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.WEDNESDAY)
+            binding.thursdayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.THURSDAY)
+            binding.fridayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.FRIDAY)
+            binding.saturdayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.SATURDAY)
+            binding.sundayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.SUNDAY)
+
+            binding.alarmEnabled.isChecked = it.enabled
+        })
     }
 
     fun showTimePickerDialog(v: View) {
