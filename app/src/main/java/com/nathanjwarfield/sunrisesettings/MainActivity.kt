@@ -1,8 +1,9 @@
 package com.nathanjwarfield.sunrisesettings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.nathanjwarfield.sunrisesettings.databinding.ActivityMainBinding
@@ -17,10 +18,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val sharedPreferences =
+            this.getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE)
+
+        val alarmAddress = sharedPreferences.getString(
+            getString(R.string.alarm_address_key),
+            getString(R.string.alarm_default_address)
+        )
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this, MainActivityViewModelFactory(alarmAddress!!)).get(MainActivityViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        setActionBar(binding.toolbar)
+
+        viewModel.alarmOnline.observe(this, { alarmOnline ->
+            binding.alarmEnabled.isChecked = alarmOnline
+            binding.alarmEnabled.isVisible = alarmOnline
+        })
 
         viewModel.alarmSettings.observe(this, androidx.lifecycle.Observer {
             binding.mondayAlarmTime.text = viewModel.getAlarmTime(DayOfWeek.MONDAY)
@@ -38,7 +52,8 @@ class MainActivity : AppCompatActivity() {
     fun showTimePickerDialog(v: View) {
         val tag = v.tag.toString()
         val dayOfWeek = DayOfWeek.valueOf(tag.toUpperCase(Locale.ROOT))
-        val alarmDay = viewModel.alarmSettings.value?.alarms!!.single{alarmDay -> alarmDay.kotlinDay == dayOfWeek.value }
+        val alarmDay =
+            viewModel.alarmSettings.value?.alarms!!.single { alarmDay -> alarmDay.kotlinDay == dayOfWeek.value }
         val dialog = TimePickerFragment(alarmDay, viewModel)
         dialog.show(supportFragmentManager, "Alarm Picker")
     }
